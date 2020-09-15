@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/SnakeGameRecoil/static/css/main.ad82459e.chunk.css",
+    "main.js": "/SnakeGameRecoil/static/js/main.7dfc2b62.chunk.js",
+    "main.js.map": "/SnakeGameRecoil/static/js/main.7dfc2b62.chunk.js.map",
+    "runtime-main.js": "/SnakeGameRecoil/static/js/runtime-main.666630a7.js",
+    "runtime-main.js.map": "/SnakeGameRecoil/static/js/runtime-main.666630a7.js.map",
+    "static/js/2.cd08daaf.chunk.js": "/SnakeGameRecoil/static/js/2.cd08daaf.chunk.js",
+    "static/js/2.cd08daaf.chunk.js.map": "/SnakeGameRecoil/static/js/2.cd08daaf.chunk.js.map",
+    "index.html": "/SnakeGameRecoil/index.html",
+    "precache-manifest.9e5dce1ea5a51bcc2b3d28d6a350c2e0.js": "/SnakeGameRecoil/precache-manifest.9e5dce1ea5a51bcc2b3d28d6a350c2e0.js",
+    "service-worker.js": "/SnakeGameRecoil/service-worker.js",
+    "static/css/main.ad82459e.chunk.css.map": "/SnakeGameRecoil/static/css/main.ad82459e.chunk.css.map",
+    "static/js/2.cd08daaf.chunk.js.LICENSE.txt": "/SnakeGameRecoil/static/js/2.cd08daaf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.666630a7.js",
+    "static/js/2.cd08daaf.chunk.js",
+    "static/css/main.ad82459e.chunk.css",
+    "static/js/main.7dfc2b62.chunk.js"
+  ]
+}
