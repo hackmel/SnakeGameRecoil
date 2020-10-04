@@ -57,7 +57,6 @@ export const checkIfCollidedWithSelf = selector({
   key: "checkIfCollidedWithSelf",
   get: ({ get }) => {
     var tails = get(SnakeTailState);
-    
     var collision = tails.filter( item => item.left === tails[0].left && item.top === tails[0].top);
      
     return (
