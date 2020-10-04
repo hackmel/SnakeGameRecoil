@@ -1,0 +1,10 @@
+
+
+.footer {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: aliceblue;
+    align-content: space-between;
+}

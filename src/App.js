@@ -1,18 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
-import SnakeGame from "./containers/snake-game";
+import React from "react";
+import { RecoilRoot } from "recoil";
+
+import MainGame from "./containers/main-game/index";
+import { NavBar } from "./components/nav-bar";
+import { Footer } from "./components/footer";
+import  "./App.css";
 
 function App() {
   return (
-    <RecoilRoot>
-      <SnakeGame />
-    </RecoilRoot>
+    <div className="./App.css">
+      <RecoilRoot>
+        <NavBar/> 
+        <MainGame />
+        <Footer/>
+      </RecoilRoot>
+    </div>
   );
 }
 

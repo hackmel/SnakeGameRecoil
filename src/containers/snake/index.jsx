@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useKeyPress } from "../hooks/useKeyPress";
-import { Zurot } from "../components/snake";
-import { SnakeTailState, KeyPressState } from "../models/atoms";
+import { useKeyPress } from "../../hooks/useKeyPress";
+import { Snake } from "../../components/snake";
+import { SnakeTailState, KeyPressState } from "../../models/atoms";
 
 export const SnakeContainer = () => {
   const [keyPressed, setKeyPressed] = useKeyPress();
@@ -19,5 +19,5 @@ export const SnakeContainer = () => {
     setKeyPressState(keyPressed);
   }, [keyPressed]);
 
-  return <Zurot tails={TailsState} />;
+  return <Snake tails={TailsState} />;
 };

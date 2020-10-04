@@ -1,0 +1,43 @@
+.nav {
+    display: flex;
+    align-items: center;
+    color: aliceblue;
+    align-content: space-between;
+  }
+  
+  .nav .logo{
+    height: 100px;
+    width: 100px;
+  }
+  
+  .nav h1 {
+    font-family: 'GraublauWeb', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    font-size: xx-large;
+  }
+  
+  .nav ul {
+     list-style-type: none;
+     display: inline-block;
+     margin-left: auto;
+     margin-right: 1%;
+  }
+  
+  .nav ul li{
+    float: left;
+  }
+  
+  .nav ul li a {
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 14px;
+    color: aliceblue;
+    font-size: xx-large;
+    font-family: 'GraublauWeb', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+  }
+  
+  .nav li:last-child a {
+    border-radius: 10px;
+    background-color: dodgerblue;
+  }

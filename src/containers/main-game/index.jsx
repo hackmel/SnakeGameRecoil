@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
+
 import {
   makeSnakeLonger,
   createFood,
   checkIfFoodEaten,
   checkIfCollidedWithWall,
   moveSnakeDirection,
-} from "../models/selectors";
+  checkIfCollidedWithSelf
+} from "../../models/selectors";
 
-import { SnakeContainer } from "./snake";
-import { FoodContainer } from "./food";
+import { SnakeContainer } from "../snake/index";
+import { FoodContainer } from "../food/index";
+import { useInterval } from "../../hooks/useInterval";
 
-import { useInterval } from "../hooks/useInterval";
+import {MainApp, GameContainer, InvisibleContainer} from './styles'
 
-import "../App.css";
-
-export default function SnakeGame() {
+export default function MainGame() {
   // setter selectors that updates the state
   const addTail = useSetRecoilState(makeSnakeLonger);
   const addFood = useSetRecoilState(createFood);
@@ -25,16 +26,19 @@ export default function SnakeGame() {
   //getter selectors that are used to compute the state without changing them
   const isFoodEaten = useRecoilValue(checkIfFoodEaten);
   const isWallHit = useRecoilValue(checkIfCollidedWithWall);
+  const isSelfHit = useRecoilValue(checkIfCollidedWithSelf);
 
   useEffect(() => {
     addFood();
   }, []);
 
   useInterval(() => {
-    moveSnake();
-    if (isWallHit) {
+     moveSnake();
+    if (isWallHit || isSelfHit) {
       window.location.reload();
       alert("Game Over");
+
+      console.log("you hit ur self")
     }
 
     if (isFoodEaten) {
@@ -44,9 +48,13 @@ export default function SnakeGame() {
   }, 200);
 
   return (
-    <div className="App">
-      <SnakeContainer />
-      <FoodContainer />
-    </div>
+    <MainApp>
+       <InvisibleContainer/>
+       <GameContainer> 
+        <SnakeContainer />
+        <FoodContainer />
+       </GameContainer>
+       <InvisibleContainer/>
+    </MainApp>
   );
 }
