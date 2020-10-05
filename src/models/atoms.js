@@ -18,3 +18,8 @@ export const KeyPressState = atom({
   key: "KeyPressState",
   default: "",
 });
+
+export const ScoreState = atom({
+  key: "ScoreState",
+  default: 0,
+});

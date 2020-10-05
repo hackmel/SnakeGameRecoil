@@ -1,5 +1,5 @@
 import { selector } from "recoil";
-import { SnakeTailState, FoodState, KeyPressState } from "./atoms";
+import { SnakeTailState, FoodState, KeyPressState, ScoreState } from "./atoms";
 
 export const makeSnakeLonger = selector({
   key: "makeSnakeLonger",
@@ -19,6 +19,15 @@ export const createFood = selector({
     let top = parseInt(Math.floor(Math.random() * Math.floor(100)) / 5) * 5;
 
     set(FoodState, { left: left, top: top });
+  },
+});
+
+export const addScore = selector({
+  key: "addScore",
+  set: ({ set, get }) => {
+    var score = get(ScoreState);
+
+    set(ScoreState, ++score);
   },
 });
 
@@ -57,11 +66,11 @@ export const checkIfCollidedWithSelf = selector({
   key: "checkIfCollidedWithSelf",
   get: ({ get }) => {
     var tails = get(SnakeTailState);
-    var collision = tails.filter( item => item.left === tails[0].left && item.top === tails[0].top);
-     
-    return (
-      collision.length === 2
+    var collision = tails.filter(
+      (item) => item.left === tails[0].left && item.top === tails[0].top
     );
+
+    return collision.length === 2;
   },
 });
 

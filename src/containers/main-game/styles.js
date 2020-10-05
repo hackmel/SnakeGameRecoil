@@ -7,6 +7,7 @@ export const GameContainer = styled.div`
   border-width: thick;
   margin: 20px;
   flex-grow: 3;
+  border-radius: 10px;
 `;
 
 export const InvisibleContainer = styled.div`

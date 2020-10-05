@@ -1,10 +1,24 @@
-
-
 .footer {
-    margin: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    color: aliceblue;
-    align-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  font-family: "GraublauWeb", "Arial Narrow", Arial, sans-serif;
+  font-weight: bold;
+  font-size: x-large;
+  color: aliceblue;
+}
+
+.footer a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.footer a:hover {
+  font-size: xx-large;
+}
+
+.footer div:hover {
+  font-size: xx-large;
 }
