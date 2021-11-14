@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: GraublauWeb;
-  src: url("ZealotOutline-rnMy.ttf") format("opentype");
+  src: url("/src/assets/fonts/ZealotOutline-rnMy.ttf") format("opentype");
 }
 
 * {

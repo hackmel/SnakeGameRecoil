@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { Food } from "../../components/food/index";
 import { FoodState } from "../../models/atoms";
 
-export const FoodContainer = () => {
-  const [food] = useRecoilState(FoodState);
-  return <Food left={food.left} top={food.top} />;
+export const FoodContainer = (): JSX.Element => {
+  const [foodPosition] = useRecoilState(FoodState);
+  return <Food {... foodPosition} />;
 };
