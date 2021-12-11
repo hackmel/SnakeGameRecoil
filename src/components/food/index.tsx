@@ -15,6 +15,6 @@ const FoodBody = styled.div<Positions>`
   left: ${(props: any) => props.left}px;
 `;
 
-export const Food: React.FC<Positions> = ({left, top}): JSX.Element => {
+export const Food = ({left, top}: Positions): JSX.Element => {
   return <FoodBody left={left} top={top} />;
 };

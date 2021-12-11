@@ -8,6 +8,7 @@ export const GameContainer = styled.div`
   height: 808px;
   width: 1010px;
   border-radius: 10px;
+  background-color: darkslategray;
 `;
 
 export const MainApp = styled.div`

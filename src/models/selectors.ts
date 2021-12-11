@@ -27,7 +27,7 @@ export const FoodSelector = selector<Positions>({
 
 
 export const ScoreSelctor = selector<Number>({
-  key: "ScoreSelctor",
+  key: "ScoreSelector",
   set: ({ set, get }, addedScore) => {
     let newScore = addedScore as Number;
     let score: Number = get(ScoreState);
@@ -44,9 +44,7 @@ export const checkIfFoodEatenSelector = selector<boolean>({
     var isHit = false;
 
     tails.forEach((element) => {
-      console.log("tail top:" + element.top + " food top: " + food.top)
-      console.log("tail left" + element.left + "food left" + food.left)
-
+     
       if (element.top === food.top && element.left === food.left) {
         isHit = true;
       }
