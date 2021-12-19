@@ -58,7 +58,7 @@ export const  MainGameContainer = (): JSX.Element => {
   
   // Initalize game
   useEffect(() => {
-    
+
     window.addEventListener("keydown", (event) => {
       setKeyPressed(event.key as KeyPressType);
     });
@@ -70,7 +70,12 @@ export const  MainGameContainer = (): JSX.Element => {
   // Check for key events, state and direction
   useEffect(() => { 
 
-    if(keyPressed === Direction.Unknown && isInitialized()) {
+
+    if(isGameOver() && keyPressed !== Direction.Enter) {
+      return;
+    }
+
+    if(isInitialized() && keyPressed === Direction.Unknown) {
       return;
     }
 
@@ -125,7 +130,7 @@ export const  MainGameContainer = (): JSX.Element => {
       <GameContainer>
         <GameStartDialogBox show={isInitialized()}/>
         <GamePausedDialogBox show={isPaused()}/>
-        <GameOverDialogBox show={isGameOver()} playAgainEvent={()=> { window.location.reload()}}/>
+        <GameOverDialogBox show={isGameOver()}/>
         <SnakeContainer />
         <FoodContainer />
         <GhostContainer/>
