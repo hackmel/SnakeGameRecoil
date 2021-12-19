@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 
 import { KeyPressState } from "../../models/atoms";
 
@@ -10,7 +10,9 @@ import {
   checkIfCollidedWithWallSelector,
   SnakeDirectionSelector,
   checkIfCollidedWithSelfSelector,
+  checkIfEatenByGhostSelector,
   ScoreSelctor,
+  GhostSelector,
 } from "../../models/selectors";
 
 // import custom hooks
@@ -20,6 +22,7 @@ import { useKeyPress } from "../../hooks/useKeyPress";
 // import container components
 import { SnakeContainer } from "../snake/index";
 import { FoodContainer } from "../food/index";
+import { GhostContainer } from "../ghost/index";
 import { GameStartDialogBox } from '../../components/modal/game-start'
 import { GameOverDialogBox } from '../../components/modal/game-over'
 import { GamePausedDialogBox } from '../../components/modal/game-paused'
@@ -35,6 +38,7 @@ export const  MainGameContainer = (): JSX.Element => {
   // setter selectors that updates the state
   const addNewTail = useSetRecoilState(SnakeTailSelector);
   const generateFood = useSetRecoilState(FoodSelector);
+  const generateBomb = useSetRecoilState(GhostSelector);
   const moveSnake = useSetRecoilState(SnakeDirectionSelector);
   const updateScoreWith = useSetRecoilState(ScoreSelctor);
 
@@ -43,6 +47,7 @@ export const  MainGameContainer = (): JSX.Element => {
   const isWallHit = useRecoilValue(checkIfCollidedWithWallSelector);
   const isSelfHit = useRecoilValue(checkIfCollidedWithSelfSelector);
   const snakeTail = useRecoilValue(SnakeTailSelector);
+  const isEatenByGhost = useRecoilValue(checkIfEatenByGhostSelector);
 
   // get key stroke event state
   const setKeyPressState = useSetRecoilState<string>(KeyPressState);
@@ -53,6 +58,7 @@ export const  MainGameContainer = (): JSX.Element => {
   
   // Initalize game
   useEffect(() => {
+    
     window.addEventListener("keydown", (event) => {
       setKeyPressed(event.key as KeyPressType);
     });
@@ -63,20 +69,22 @@ export const  MainGameContainer = (): JSX.Element => {
 
   // Check for key events, state and direction
   useEffect(() => { 
+
     if(keyPressed === Direction.Unknown && isInitialized()) {
       return;
+    }
+
+    if(keyPressed === Direction.Enter && isGameOver()) {
+      window.location.reload();
     }
     
     if(keyPressed === Direction.Paused) {
       setGameState(GameState.Paused);  
       return;
     }
-
-    if(isPaused() && keyPressed !== Direction.Unknown) {
-      setGameState(GameState.Active)
-    }
-    
-    if (keyPressed !== Direction.Unknown){
+  
+    if (keyPressed !== Direction.Unknown 
+                  && keyPressed !== Direction.Enter){
       setGameState(GameState.Active)
     }
 
@@ -91,7 +99,7 @@ export const  MainGameContainer = (): JSX.Element => {
     if(!isActive()) return;
 
       moveSnake();
-      if (isWallHit || isSelfHit) {
+      if (isWallHit || isSelfHit || isEatenByGhost) {
         setGameState(GameState.GameOver);  
       }
   
@@ -99,6 +107,7 @@ export const  MainGameContainer = (): JSX.Element => {
         updateScoreWith(1);
         addNewTail(snakeTail);
         generateFood(calculateRandomPostions());
+        generateBomb()
       }
 
   }, 200);
@@ -119,6 +128,7 @@ export const  MainGameContainer = (): JSX.Element => {
         <GameOverDialogBox show={isGameOver()} playAgainEvent={()=> { window.location.reload()}}/>
         <SnakeContainer />
         <FoodContainer />
+        <GhostContainer/>
       </GameContainer>
      
     </MainApp>

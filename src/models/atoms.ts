@@ -17,6 +17,11 @@ export const FoodState = atom<Positions>({
   default: { top: 0, left: 0 },
 });
 
+export const GhostState = atom<Positions[]>({
+  key: "GhostState",
+  default:  [] 
+});
+
 export const KeyPressState = atom<string>({
   key: "KeyPressState",
   default: "",

@@ -1,6 +1,7 @@
 import { selector } from "recoil";
-import { SnakeTailState, FoodState, KeyPressState, ScoreState } from "./atoms";
+import { GhostState, SnakeTailState, FoodState, KeyPressState, ScoreState } from "./atoms";
 import {Positions} from './dto'
+import {calculateRandomPostions } from '../utils/math'
 
 
 export const SnakeTailSelector = selector<Positions[]>({
@@ -23,6 +24,22 @@ export const FoodSelector = selector<Positions>({
     set(FoodState, position);
   },
   get: () => FoodState
+});
+
+export const GhostSelector = selector({
+  key: "GhostSelector",
+  set: ({ set, get }) => {
+
+    var tails: Positions[] = get(SnakeTailState);
+    var bombs: Positions[] = get(GhostState);
+
+    var newBombs: Positions[] = [... bombs];
+
+    newBombs.push(calculateRandomPostions())
+
+    set(GhostState, newBombs);
+  },
+  get: () => {}
 });
 
 
@@ -48,6 +65,28 @@ export const checkIfFoodEatenSelector = selector<boolean>({
       if (element.top === food.top && element.left === food.left) {
         isHit = true;
       }
+    });
+
+    return isHit;
+  },
+});
+
+export const checkIfEatenByGhostSelector = selector<boolean>({
+  key: "checkIfEatenByGhostSelector",
+  get: ({ get }) => {
+    var tails = get(SnakeTailState);
+    var ghosts = get(GhostState);
+    var isHit = false;
+
+    tails.forEach((snakeBody) => {
+     
+      ghosts.forEach(ghost => {
+        
+        if (snakeBody.top === ghost.top && snakeBody.left === ghost.left) {
+          isHit = true;
+        }
+      })
+      
     });
 
     return isHit;

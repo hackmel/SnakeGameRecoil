@@ -23,6 +23,9 @@ export const useKeyPress = () : [Direction, React.Dispatch<React.SetStateAction<
       case KeyPressType.SpaceBar:
         setDirection(Direction.Paused);
         break;
+      case KeyPressType.Enter:
+          setDirection(Direction.Enter);
+          break;
       default:
         setDirection(Direction.Unknown);
         break;
