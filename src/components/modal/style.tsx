@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const DialogBox = styled.div<any>`
-  font-weight: 900;
+  font-weight: 300;
   font-size: 1.5rem;
   img {
       margin-top: 10%;

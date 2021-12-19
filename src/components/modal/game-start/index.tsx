@@ -10,7 +10,8 @@ export const GameStartDialogBox: React.FC<{show: boolean}> = ({show}) => {
     return(
         <ModalDialog show={show} header="Welcome to the game"> 
            <DialogBox>
-                <h3>Press arrow keys to start the game</h3>
+                <p>Use arrow keys to start/navigate</p>
+                <p>Press space bar for help</p>
                 <img src={arrowkeys}></img>
             </DialogBox>   
            
