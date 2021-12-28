@@ -3,9 +3,9 @@ import { useRecoilState } from "recoil";
 
 import { Snake } from "../../components/snake";
 import { SnakeTailState } from "../../models/atoms";
-import {Positions} from '../../models/dto'
+import {SpriteElement} from '../../models/dto'
 
 export const SnakeContainer = (): JSX.Element => {
-  const [TailsState] = useRecoilState<Positions[]>(SnakeTailState);
+  const [TailsState] = useRecoilState<SpriteElement[]>(SnakeTailState);
   return <Snake tails={TailsState} />;
 };
