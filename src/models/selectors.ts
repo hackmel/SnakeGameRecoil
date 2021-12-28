@@ -1,13 +1,13 @@
 import { selector } from "recoil";
 import { GhostState, SnakeTailState, FoodState, KeyPressState, ScoreState } from "./atoms";
-import {Positions} from './dto'
-import {calculateRandomPostions } from '../utils/math'
+import {SpriteElement} from './dto'
+import {calculateRandomPostionsButExclude } from '../utils/math'
 
 
-export const SnakeTailSelector = selector<Positions[]>({
+export const SnakeTailSelector = selector<SpriteElement[]>({
   key: "SnakeTailSelector",
   set: ({ set }, newValue) => {
-    var tail = newValue as Positions[]
+    var tail = newValue as SpriteElement[]
     set(SnakeTailState, [
       ...tail,
       { top: tail[tail.length - 1].top, left: tail[tail.length - 1].left },
@@ -17,27 +17,27 @@ export const SnakeTailSelector = selector<Positions[]>({
 });
 
 
-export const FoodSelector = selector<Positions>({
+export const FoodSelector = selector({
   key: "FoodSelector",
-  set: ({ set }, newPosition) => {
-    let position = newPosition as Positions
+  set: ({ set, get }) => {
+
+    let ghosts: SpriteElement[] =get(GhostState)
+    let position = calculateRandomPostionsButExclude(ghosts)
     set(FoodState, position);
   },
-  get: () => FoodState
+  get: () => {}
 });
 
 export const GhostSelector = selector({
   key: "GhostSelector",
   set: ({ set, get }) => {
 
-    var tails: Positions[] = get(SnakeTailState);
-    var bombs: Positions[] = get(GhostState);
+    var ghosts: SpriteElement[] = get(GhostState);
+    var newGhosts: SpriteElement[] = [... ghosts];
 
-    var newBombs: Positions[] = [... bombs];
+    newGhosts.push(calculateRandomPostionsButExclude(ghosts))
 
-    newBombs.push(calculateRandomPostions())
-
-    set(GhostState, newBombs);
+    set(GhostState, newGhosts);
   },
   get: () => {}
 });
@@ -122,7 +122,7 @@ export const checkIfCollidedWithSelfSelector = selector({
 export const SnakeDirectionSelector = selector({
   key: "SnakeDirectionSelector",
   set: ({ set, get }) => {
-    var tails: Positions[] = get(SnakeTailState);
+    var tails: SpriteElement[] = get(SnakeTailState);
     var keyPressed = get(KeyPressState);
 
     var newTails = [];

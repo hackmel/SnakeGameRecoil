@@ -1,9 +1,9 @@
 
 import { atom } from "recoil";
-import {Positions} from '../models/dto'
+import {SpriteElement} from '../models/dto'
 
 
-export const SnakeTailState = atom<Positions[]>({
+export const SnakeTailState = atom<SpriteElement[]>({
   key: "SnakeTailState",
   default:  [
     { top: 150, left: 300 },
@@ -12,12 +12,12 @@ export const SnakeTailState = atom<Positions[]>({
   ] 
 });
 
-export const FoodState = atom<Positions>({
+export const FoodState = atom<SpriteElement>({
   key: "FoodState",
   default: { top: 0, left: 0 },
 });
 
-export const GhostState = atom<Positions[]>({
+export const GhostState = atom<SpriteElement[]>({
   key: "GhostState",
   default:  [] 
 });

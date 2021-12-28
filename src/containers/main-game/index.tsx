@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { KeyPressState } from "../../models/atoms";
 
@@ -23,14 +23,13 @@ import { useKeyPress } from "../../hooks/useKeyPress";
 import { SnakeContainer } from "../snake/index";
 import { FoodContainer } from "../food/index";
 import { GhostContainer } from "../ghost/index";
-import { GameStartDialogBox } from '../../components/modal/game-start'
-import { GameOverDialogBox } from '../../components/modal/game-over'
-import { GamePausedDialogBox } from '../../components/modal/game-paused'
+import { GameStartDialogBox } from '../../components/modal/game-start';
+import { GameOverDialogBox } from '../../components/modal/game-over';
+import { GamePausedDialogBox } from '../../components/modal/game-paused';
 
 
 // import utilities
-import {calculateRandomPostions} from '../../utils/math'
-import {KeyPressType, Direction, GameState} from '../../enum'
+import {KeyPressType, Direction, GameState} from '../../enum';
 import { MainApp, GameContainer } from "./styles";
 
 export const  MainGameContainer = (): JSX.Element => {
@@ -38,7 +37,7 @@ export const  MainGameContainer = (): JSX.Element => {
   // setter selectors that updates the state
   const addNewTail = useSetRecoilState(SnakeTailSelector);
   const generateFood = useSetRecoilState(FoodSelector);
-  const generateBomb = useSetRecoilState(GhostSelector);
+  const generateGhost = useSetRecoilState(GhostSelector);
   const moveSnake = useSetRecoilState(SnakeDirectionSelector);
   const updateScoreWith = useSetRecoilState(ScoreSelctor);
 
@@ -54,7 +53,7 @@ export const  MainGameContainer = (): JSX.Element => {
   const [keyPressed, setKeyPressed] = useKeyPress();
 
   
-  const [gameState, setGameState] = useState<GameState>(GameState.Initialized)
+  const [gameState, setGameState] = useState<GameState>(GameState.Initialized);
   
   // Initalize game
   useEffect(() => {
@@ -63,13 +62,12 @@ export const  MainGameContainer = (): JSX.Element => {
       setKeyPressed(event.key as KeyPressType);
     });
 
-    generateFood(calculateRandomPostions());
+    generateFood();
   }, []);
 
 
   // Check for key events, state and direction
   useEffect(() => { 
-
 
     if(isGameOver() && keyPressed !== Direction.Enter) {
       return;
@@ -79,7 +77,7 @@ export const  MainGameContainer = (): JSX.Element => {
       return;
     }
 
-    if(keyPressed === Direction.Enter && isGameOver()) {
+    if(isGameOver() && keyPressed === Direction.Enter) {
       window.location.reload();
     }
     
@@ -89,7 +87,7 @@ export const  MainGameContainer = (): JSX.Element => {
     }
   
     if (keyPressed !== Direction.Unknown 
-                  && keyPressed !== Direction.Enter){
+          && keyPressed !== Direction.Enter){
       setGameState(GameState.Active)
     }
 
@@ -111,8 +109,8 @@ export const  MainGameContainer = (): JSX.Element => {
       if (isFoodEaten) {
         updateScoreWith(1);
         addNewTail(snakeTail);
-        generateFood(calculateRandomPostions());
-        generateBomb()
+        generateGhost()
+        generateFood(); 
       }
 
   }, 200);
